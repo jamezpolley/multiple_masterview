@@ -77,6 +77,7 @@ module MasterviewScraper
     force_detail, timeout, page_size = 100, australian_proxy = false
   )
     agent = Mechanize.new
+    agent.log = Logger.new $stderr
     agent.verify_mode = OpenSSL::SSL::VERIFY_NONE if disable_ssl_certificate_check
     if australian_proxy
       # On morph.io set the environment variable MORPH_AUSTRALIAN_PROXY to
@@ -138,7 +139,7 @@ module MasterviewScraper
   def self.scrape_url(url, state = nil, disable_ssl_certificate_check = false, force_detail = false,
                       timeout = nil, australian_proxy = false)
     agent = Mechanize.new
-    agent.log = logger.new $stderr
+    agent.log = Logger.new $stderr
     agent.verify_mode = OpenSSL::SSL::VERIFY_NONE if disable_ssl_certificate_check
     if australian_proxy
       # On morph.io set the environment variable MORPH_AUSTRALIAN_PROXY to
