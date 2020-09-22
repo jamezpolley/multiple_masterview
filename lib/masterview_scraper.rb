@@ -8,6 +8,7 @@ require "masterview_scraper/table"
 require "masterview_scraper/authorities"
 require "masterview_scraper/get_applications_api"
 
+require "logger"
 require "scraperwiki"
 require "mechanize"
 
@@ -137,6 +138,7 @@ module MasterviewScraper
   def self.scrape_url(url, state = nil, disable_ssl_certificate_check = false, force_detail = false,
                       timeout = nil, australian_proxy = false)
     agent = Mechanize.new
+    agent.log = logger.new(STDERR)
     agent.verify_mode = OpenSSL::SSL::VERIFY_NONE if disable_ssl_certificate_check
     if australian_proxy
       # On morph.io set the environment variable MORPH_AUSTRALIAN_PROXY to
